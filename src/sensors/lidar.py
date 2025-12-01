@@ -19,7 +19,7 @@ class DownwardLiDAR:
         self.rate_hz = rate_hz
         self.dt = 1.0 / rate_hz
         self.range_max = range_max
-        self.range_min = range_max
+        self.range_min = range_min
         self.noise_sigma = noise_sigma
         self.beam_divergence = np.deg2rad(beam_divergence_deg)
 
@@ -60,12 +60,12 @@ class DownwardLiDAR:
 
         if result and result[0][0] >= 0:
             hit_frac = result[0][2]
-            dist = self.range_min * hit_frac
+            dist = self.range_max * hit_frac
             dist += np.random.normal(0, self.noise_sigma)
             dist = np.clip(dist, self.range_min, self.range_max)
             return dist, True
 
-        return self.range_in, False
+        return self.range_max, False
 
     def _find_link(self, body_id: int, link_name: str) -> int:
         """Looks up link index by name. Returns -1 if not found."""
