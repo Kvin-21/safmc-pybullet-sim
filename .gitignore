@@ -1,0 +1,28 @@
+# Virtual environment
+venv/
+*.pyc
+__pycache__/
+*.egg-info/
+
+# Data and models
+data/
+models/
+logs/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+*Zone.Identifier
+Thumbs.db
+
+# Build artifacts
+build/
+dist/
+*.so
+*.dylib
+*.dll
