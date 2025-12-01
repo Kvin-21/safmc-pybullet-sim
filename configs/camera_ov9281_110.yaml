@@ -1,0 +1,60 @@
+# OV9281-110 Camera Configuration
+# Global shutter, monochrome, 110° FOV
+
+camera:
+  model: "OV9281-110"
+  type: "monochrome"
+  shutter: "global"
+  
+  resolution:
+    width: 1280
+    height: 800
+  
+  optics:
+    fov_horizontal: 110.0  # degrees
+    fov_vertical: 70.0     # degrees
+    fov_diagonal: 110.0
+    focal_length: 2.1      # mm
+    aperture: 2.2          # f-number
+  
+  intrinsics:
+    # Computed from FOV and resolution
+    # fx = fy = 0.5 * width / tan(0.5 * fov_radians)
+    fx: 448.3
+    fy: 448.3
+    cx: 640.0
+    cy: 400.0
+    
+  distortion:
+    model: "radial"
+    k1: 0.005   # Very low distortion
+    k2: 0.001
+    p1: 0.0
+    p2: 0.0
+  
+  sensor:
+    pixel_size_um: 3.0
+    sensor_size: "1/4 inch"
+    dynamic_range_db: 68.0
+    snr_db: 38.0
+  
+  performance:
+    frame_rate_max: 120   # fps at full resolution
+    exposure_time_ms: 2.0 # 1/500s for low motion blur
+    gain: 1.5
+  
+  noise:
+    read_noise_sigma: 2.0      # uint8 units
+    shot_noise_enabled: true
+    temporal_noise_enabled: true
+  
+  mounting:
+    # Position relative to drone CG (metres)
+    position: [0.06, 0.0, 0.02]
+    # Orientation (roll, pitch, yaw in degrees)
+    orientation: [0.0, -10.0, 0.0]  # 10° down tilt
+  
+  processing:
+    motion_blur_subframes: 3
+    vignetting_enabled: true
+    compression: "none"
