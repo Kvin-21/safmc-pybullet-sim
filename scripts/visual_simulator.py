@@ -93,10 +93,10 @@ class VisualSimulator:
         # Boundary walls (semi-transparent netting)
         wall_colour = [0.7, 0.7, 0.8, 0.5]
         walls = [
-            ([length/2, 0, height/2], [length/2, 0.5, height/2]),
-            ([length/2, width, height/2], [length/2, 0.5, height/2]),
-            ([0, width/2, height/2], [0.5, width/2, height/2]),
-            ([length, width/2, height/2], [0.5, width/2, height/2]),
+            ([length/2, 0, height/2], [length/2, 0.05, height/2]),
+            ([length/2, width, height/2], [length/2, 0.05, height/2]),
+            ([0, width/2, height/2], [0.05, width/2, height/2]),
+            ([length, width/2, height/2], [0.05, width/2, height/2]),
         ]
         for pos, half in walls:
             col = p.createCollisionShape(p.GEOM_BOX, halfExtents=half)
@@ -181,17 +181,17 @@ class VisualSimulator:
         # Two legs
         for offset in [-outer/2, outer/2]:
             pos = [x, y + offset, leg_h/2]
-            col = p.createCollisionShape(p.GEOM_BOX, halfExtents=[0.5, 0.5, leg_h/2])
-            vis = p.createVisualShape(p.GEOM_BOX, halfExtents=[0.5, 0.5, leg_h/2], rgbaColor=wood)
+            col = p.createCollisionShape(p.GEOM_BOX, halfExtents=[0.05, 0.05, leg_h/2])
+            vis = p.createVisualShape(p.GEOM_BOX, halfExtents=[0.05, 0.05, leg_h/2], rgbaColor=wood)
             parts.append(p.createMultiBody(0, col, vis, pos))
 
         # Frame bars
         fz = leg_h + sq_h/2
         bars = [
-            ([x, y, fz + sq_h/2 - border/2], [0.5, outer/2, border/2]),     # top
-            ([x, y, fz - sq_h/2 + border/2], [0.5, outer/2, border/2]),     # bottom
-            ([x, y - outer/2 + border/2, fz], [0.5, border/2, sq_h/2]),     # left
-            ([x, y + outer/2 - border/2, fz], [0.5, border/2, sq_h/2]),     # right
+            ([x, y, fz + sq_h/2 - border/2], [0.05, outer/2, border/2]),     # top
+            ([x, y, fz - sq_h/2 + border/2], [0.05, outer/2, border/2]),     # bottom
+            ([x, y - outer/2 + border/2, fz], [0.05, border/2, sq_h/2]),     # left
+            ([x, y + outer/2 - border/2, fz], [0.05, border/2, sq_h/2]),     # right
         ]
         for pos, half in bars:
             col = p.createCollisionShape(p.GEOM_BOX, halfExtents=half)
@@ -215,18 +215,18 @@ class VisualSimulator:
         # Four legs
         for offset in [-total_w/2, -outer/2, outer/2, total_w/2]:
             pos = [x, y + offset, leg_h/2]
-            col = p.createCollisionShape(p.GEOM_BOX, halfExtents=[0.5, 0.5, leg_h/2])
-            vis = p.createVisualShape(p.GEOM_BOX, halfExtents=[0.5, 0.5, leg_h/2], rgbaColor=wood)
+            col = p.createCollisionShape(p.GEOM_BOX, halfExtents=[0.05, 0.05, leg_h/2])
+            vis = p.createVisualShape(p.GEOM_BOX, halfExtents=[0.05, 0.05, leg_h/2], rgbaColor=wood)
             parts.append(p.createMultiBody(0, col, vis, pos))
 
         # Frame bars
         fz = leg_h + sq_h/2
         bars = [
-            ([x, y, fz + sq_h/2 - border/2], [0.5, total_w/2, border/2]),     # top
-            ([x, y, fz - sq_h/2 + border/2], [0.5, total_w/2, border/2]),     # bottom
-            ([x, y - total_w/2 + border/2, fz], [0.5, border/2, sq_h/2]),     # left edge
-            ([x, y + total_w/2 - border/2, fz], [0.5, border/2, sq_h/2]),     # right edge
-            ([x, y, fz], [0.5, border, sq_h/2]),                              # centre divider
+            ([x, y, fz + sq_h/2 - border/2], [0.05, total_w/2, border/2]),     # top
+            ([x, y, fz - sq_h/2 + border/2], [0.05, total_w/2, border/2]),     # bottom
+            ([x, y - total_w/2 + border/2, fz], [0.05, border/2, sq_h/2]),     # left edge
+            ([x, y + total_w/2 - border/2, fz], [0.05, border/2, sq_h/2]),     # right edge
+            ([x, y, fz], [0.05, border, sq_h/2]),                              # centre divider
         ]
         for pos, half in bars:
             col = p.createCollisionShape(p.GEOM_BOX, halfExtents=half)
@@ -257,18 +257,18 @@ class VisualSimulator:
             dx = -offset * sin_a
             dy = offset * cos_a
             pos = [xc + dx, yc + dy, leg_h/2]
-            col = p.createCollisionShape(p.GEOM_BOX, halfExtents=[0.5, 0.5, leg_h/2])
-            vis = p.createVisualShape(p.GEOM_BOX, halfExtents=[0.5, 0.5, leg_h/2], rgbaColor=wood)
+            col = p.createCollisionShape(p.GEOM_BOX, halfExtents=[0.05, 0.05, leg_h/2])
+            vis = p.createVisualShape(p.GEOM_BOX, halfExtents=[0.05, 0.05, leg_h/2], rgbaColor=wood)
             parts.append(p.createMultiBody(0, col, vis, pos))
 
         # Frame bars (local coords then rotated)
         fz = leg_h + sq_h/2
         bars = [
-            (0, 0, sq_h/2 - border/2, [0.5, total_w/2, border/2]),       # top
-            (0, 0, -sq_h/2 + border/2, [0.5, total_w/2, border/2]),      # bottom
-            (0, -total_w/2 + border/2, 0, [0.5, border/2, sq_h/2]),      # left
-            (0, total_w/2 - border/2, 0, [0.5, border/2, sq_h/2]),       # right
-            (0, 0, 0, [0.5, border, sq_h/2]),                            # centre
+            (0, 0, sq_h/2 - border/2, [0.05, total_w/2, border/2]),       # top
+            (0, 0, -sq_h/2 + border/2, [0.05, total_w/2, border/2]),      # bottom
+            (0, -total_w/2 + border/2, 0, [0.05, border/2, sq_h/2]),      # left
+            (0, total_w/2 - border/2, 0, [0.05, border/2, sq_h/2]),       # right
+            (0, 0, 0, [0.05, border, sq_h/2]),                            # centre
         ]
         for lx, ly, lz, half in bars:
             dx = -ly * sin_a
@@ -326,7 +326,7 @@ class VisualSimulator:
             ([0.0, 0.50, 0.85, 1.0], "Cyan"),
             ([0.10, 0.20, 0.60, 1.0], "Deep"),
             ([0.0, 0.35, 0.80, 1.0], "Royal"),
-            ([0.5, 0.48, 0.98, 1.0], "Electric"),
+            ([0.05, 0.48, 0.98, 1.0], "Electric"),
             ([0.0, 0.30, 0.70, 1.0], "Medium"),
             ([0.20, 0.45, 0.90, 1.0], "Azure"),
             ([0.0, 0.55, 0.75, 1.0], "Teal"),
@@ -411,7 +411,7 @@ class VisualSimulator:
         w = self.cam_cfg['camera']['resolution']['width']
         h = self.cam_cfg['camera']['resolution']['height']
         fov = self.cam_cfg['camera']['optics']['fov_horizontal']
-        proj = p.computeProjectionMatrixFOV(fov, w/h, 0.5, 100.0)
+        proj = p.computeProjectionMatrixFOV(fov, w/h, 0.05, 100.0)
 
         _, _, px, _, _ = p.getCameraImage(w, h, view, proj,
                                            renderer=p.ER_BULLET_HARDWARE_OPENGL)
