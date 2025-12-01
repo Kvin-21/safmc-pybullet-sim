@@ -26,6 +26,7 @@ class SAFMCF330Env(gym.Env):
     MOTOR_TAU = 0.03       # motor lag time constant (s)
     KF = 1.2e-5            # thrust coeff N/(rad/s)^2
     KM = 1.5e-7            # moment coeff Nm/(rad/s)^2
+    DRAG = np.array([0.8, 0.8, 0.3])  # body-frame drag coeffs
 
     # Rate controller gains (Betaflight-ish)
     RATE_P = np.array([0.12, 0.12, 0.10])
@@ -84,6 +85,7 @@ class SAFMCF330Env(gym.Env):
         self.crashed = False
         self.motor_omega = np.zeros(4)
         self.prev_action = np.zeros(4)
+        self.C_d = self.DRAG.copy()
 
         # PyBullet handles
         self.client = None
@@ -286,6 +288,27 @@ class SAFMCF330Env(gym.Env):
             p.applyExternalForce(self.drone_id, -1, f_world.tolist(),
                                   p_world.tolist(), p.WORLD_FRAME)
 
+        # Aerodynamic drag
+        vel, _ = p.getBaseVelocity(self.drone_id)
+        vel_body = self._world_to_body(vel, quat)
+        drag_body = -self.C_d * vel_body * np.abs(vel_body)
+        drag_world = self._body_to_world(drag_body, quat)
+        p.applyExternalForce(self.drone_id, -1, drag_world.tolist(), pos, p.WORLD_FRAME)
+
+    def _body_to_world(self, v, quat, origin=(0, 0, 0)):
+        R = np.array(p.getMatrixFromQuaternion(quat)).reshape(3, 3)
+        return R @ np.array(v) + np.array(origin)
+
+    def _world_to_body(self, v, quat):
+        R = np.array(p.getMatrixFromQuaternion(quat)).reshape(3, 3)
+        return R.T @ np.array(v)
+
+    def _observe(self) -> np.ndarray:
+        """Builds the 19-dim observation vector."""
+        pos, quat = p.getBasePositionAndOrientation(self.drone_id)
+        vel, ang_vel = p.getBaseVelocity(self.drone_id)
+        euler = p.getEulerFromQuaternion(quat)
+
         # Target gate
         if self.current_gate_idx < len(self.gate_positions):
             gate = self.gate_positions[self.current_gate_idx]
@@ -418,6 +441,9 @@ class SAFMCF330Env(gym.Env):
         if self.drone_id is not None:
             scale = np.random.uniform(1 - dyn['mass_variation'], 1 + dyn['mass_variation'])
             p.changeDynamics(self.drone_id, -1, mass=self.MASS * scale)
+            drag_scale = np.random.uniform(1 - dyn['drag_variation'], 1 + dyn['drag_variation'])
+            self.C_d = self.DRAG * drag_scale
+
     @staticmethod
     def _wrap(angle: float) -> float:
         """Wraps angle to [-pi, pi]."""
