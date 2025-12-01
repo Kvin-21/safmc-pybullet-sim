@@ -1,0 +1,77 @@
+arena:
+  dimensions:
+    length: 40.0
+    width: 20.0
+    height: 2.5
+  
+  coordinate_system: "Top-left origin (0,0), X right, Y down"
+
+central_divider:
+  enabled: true
+  start_x: 8.0
+  end_x: 28.0
+  y: 10.0
+  thickness: 0.01
+  height: 2.0
+
+gates:
+  single_gate:
+    outer_size: 1.9
+    inner_size: 1.5
+    border: 0.2
+    total_height: 2.374
+    square_height: 1.9
+    leg_height: 0.474
+  
+  double_gate:
+    total_width: 3.8
+    outer_size: 1.9
+    inner_size: 1.5
+    border: 0.2
+    middle_border: 0.4
+    total_height: 2.374
+    square_height: 1.9
+    leg_height: 0.474
+
+  positions:
+    end:
+      type: "single"
+      x: 9.0
+      y_center: 15.0
+      z: 0.95
+      yaw: 0
+      label: "END"
+    
+    start:
+      type: "single"
+      x: 14.0
+      y_center: 15.0
+      z: 0.95
+      yaw: 0
+      label: "START"
+    
+    gate_1:
+      type: "double"
+      x: 26.0
+      y_center: 15.0
+      z: 0.95
+      yaw: 0
+      label: "GATE_1"
+    
+    gate_2:
+      type: "double"
+      x: 23.5
+      y_center: 5.0
+      z: 0.95
+      yaw: 0
+      label: "GATE_2"
+    
+    gate_3:
+      type: "double"
+      x1: 6.5
+      y1: 4.2
+      x2: 8.0
+      y2: 7.2
+      z: 0.95
+      yaw: -26.57
+      label: "GATE_3"

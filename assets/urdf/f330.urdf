@@ -1,0 +1,260 @@
+<?xml version="1.0"?>
+<!-- F330 Quadcopter URDF Model - CORRECTED INERTIA -->
+<robot name="f330_quadcopter">
+  
+  <!-- Base Link (Body Centre / CG) -->
+  <link name="base_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.87"/>
+      <!-- Corrected inertia tensor for box approximation -->
+      <!-- Box: 0.15m x 0.15m x 0.05m -->
+      <!-- Ixx = (1/12)*m*(h^2 + d^2) -->
+      <!-- Iyy = (1/12)*m*(w^2 + d^2) -->
+      <!-- Izz = (1/12)*m*(w^2 + h^2) -->
+      <inertia 
+        ixx="0.00196" ixy="0.0" ixz="0.0"
+        iyy="0.00196" iyz="0.0"
+        izz="0.00327"/>
+    </inertial>
+    
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.15 0.15 0.05"/>
+      </geometry>
+      <material name="black">
+        <color rgba="0.1 0.1 0.1 1.0"/>
+      </material>
+    </visual>
+    
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.15 0.15 0.05"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <!-- Motor 1: Front-Right -->
+  <link name="motor_1">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.028"/>
+      <inertia ixx="0.00000147" ixy="0" ixz="0" iyy="0.00000147" iyz="0" izz="0.00000274"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.014" length="0.018"/>
+      </geometry>
+      <material name="grey">
+        <color rgba="0.5 0.5 0.5 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.014" length="0.018"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <joint name="base_to_motor_1" type="fixed">
+    <parent link="base_link"/>
+    <child link="motor_1"/>
+    <origin xyz="0.1237 -0.1237 0" rpy="0 0 0"/>  <!-- X-config: 45° -->
+  </joint>
+  
+  <!-- Motor 2: Front-Left -->
+  <link name="motor_2">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.028"/>
+      <inertia ixx="0.00000147" ixy="0" ixz="0" iyy="0.00000147" iyz="0" izz="0.00000274"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.014" length="0.018"/>
+      </geometry>
+      <material name="grey">
+        <color rgba="0.5 0.5 0.5 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.014" length="0.018"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <joint name="base_to_motor_2" type="fixed">
+    <parent link="base_link"/>
+    <child link="motor_2"/>
+    <origin xyz="0.1237 0.1237 0" rpy="0 0 0"/>
+  </joint>
+  
+  <!-- Motor 3: Rear-Left -->
+  <link name="motor_3">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.028"/>
+      <inertia ixx="0.00000147" ixy="0" ixz="0" iyy="0.00000147" iyz="0" izz="0.00000274"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.014" length="0.018"/>
+      </geometry>
+      <material name="grey">
+        <color rgba="0.5 0.5 0.5 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.014" length="0.018"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <joint name="base_to_motor_3" type="fixed">
+    <parent link="base_link"/>
+    <child link="motor_3"/>
+    <origin xyz="-0.1237 0.1237 0" rpy="0 0 0"/>
+  </joint>
+  
+  <!-- Motor 4: Rear-Right -->
+  <link name="motor_4">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.028"/>
+      <inertia ixx="0.00000147" ixy="0" ixz="0" iyy="0.00000147" iyz="0" izz="0.00000274"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.014" length="0.018"/>
+      </geometry>
+      <material name="grey">
+        <color rgba="0.5 0.5 0.5 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.014" length="0.018"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <joint name="base_to_motor_4" type="fixed">
+    <parent link="base_link"/>
+    <child link="motor_4"/>
+    <origin xyz="-0.1237 -0.1237 0" rpy="0 0 0"/>
+  </joint>
+  
+  <!-- Arms for visualization (optional) -->
+  <link name="arm_visual_1">
+    <inertial>
+      <origin xyz="0.06185 -0.06185 0" rpy="0 0 0"/>
+      <mass value="0.005"/>
+      <inertia ixx="0.00000001" ixy="0" ixz="0" iyy="0.00000001" iyz="0" izz="0.00000001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0.06185 -0.06185 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.1237 0.015 0.004"/>
+      </geometry>
+      <material name="red">
+        <color rgba="1.0 0.0 0.0 1.0"/>
+      </material>
+    </visual>
+  </link>
+  
+  <joint name="base_to_arm_visual_1" type="fixed">
+    <parent link="base_link"/>
+    <child link="arm_visual_1"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+  
+  <link name="arm_visual_2">
+    <inertial>
+      <origin xyz="0.06185 0.06185 0" rpy="0 0 0"/>
+      <mass value="0.005"/>
+      <inertia ixx="0.00000001" ixy="0" ixz="0" iyy="0.00000001" iyz="0" izz="0.00000001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0.06185 0.06185 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.1237 0.015 0.004"/>
+      </geometry>
+      <material name="white">
+        <color rgba="1.0 1.0 1.0 1.0"/>
+      </material>
+    </visual>
+  </link>
+  
+  <joint name="base_to_arm_visual_2" type="fixed">
+    <parent link="base_link"/>
+    <child link="arm_visual_2"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+  
+  <!-- Camera Link -->
+  <link name="camera_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.005"/>
+      <inertia ixx="0.00000001" ixy="0" ixz="0" iyy="0.00000001" iyz="0" izz="0.00000001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.025 0.024 0.008"/>
+      </geometry>
+      <material name="dark_grey">
+        <color rgba="0.2 0.2 0.2 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.025 0.024 0.008"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <joint name="base_to_camera" type="fixed">
+    <parent link="base_link"/>
+    <child link="camera_link"/>
+    <origin xyz="0.06 0 0.02" rpy="0 -0.174533 0"/>
+  </joint>
+  
+  <!-- LiDAR Link -->
+  <link name="lidar_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.002"/>
+      <inertia ixx="0.00000001" ixy="0" ixz="0" iyy="0.00000001" iyz="0" izz="0.00000001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.008" length="0.01"/>
+      </geometry>
+      <material name="blue">
+        <color rgba="0.0 0.0 1.0 1.0"/>
+      </material>
+    </visual>
+  </link>
+  
+  <joint name="base_to_lidar" type="fixed">
+    <parent link="base_link"/>
+    <child link="lidar_link"/>
+    <origin xyz="0 0 -0.03" rpy="0 0 0"/>
+  </joint>
+
+</robot>
